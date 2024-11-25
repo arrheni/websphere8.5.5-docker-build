@@ -1,0 +1,16 @@
+#!/bin/bash
+#####################################################################################
+#                                                                                   #
+#  Script to config  the server and wait.                                             #
+#                                                                                   #
+#  Usage : config_server                                                             #
+#                                                                                   #
+#####################################################################################
+
+
+create()
+{
+  wsadmin.sh  -conntype NONE  -username wasadmin -password admin -lang jython -f /work/create.py
+}
+
+create
