@@ -1,0 +1,44 @@
+FROM localhost:8080/websphere:nd_8.5.0.1_install as builder
+
+ARG PROFILE_NAME=AppSrv01
+ARG CELL_NAME=DefaultCell01
+ARG NODE_NAME=DefaultNode01
+ARG SERVER_NAME=server1
+ARG HOST_NAME=localhost
+ARG USERNAME=wasadmin
+ARG PASSWORD=admin
+
+COPY *.py /work/
+
+RUN rm -rf /etc/yum.repos.d/*  \
+    && curl -o /etc/yum.repos.d/rhel6.8.repo ftp://wasftp:@10.1.98.6/was/rhel6.8.repo \
+    && yum clean all && yum install -y util-linux 
+
+
+# Create default AppServer profile
+RUN /home/ap/was/AppServer/bin/manageprofiles.sh -create  -profileName $PROFILE_NAME \
+        -profilePath /home/ap/was/AppServer/profiles/$PROFILE_NAME -hostName $HOST_NAME \
+        -nodeName $NODE_NAME  -cellName $CELL_NAME -serverName $SERVER_NAME   \
+        -enableAdminSecurity true -adminUserName $USERNAME -adminPassword $PASSWORD \
+	&& /home/ap/was/AppServer/profiles/$PROFILE_NAME/bin/startServer $SERVER_NAME \
+	&& /home/ap/was/AppServer/bin/wsadmin -lang jython -f base_pa.py \
+	&& /home/ap/was/AppServer/profiles/$PROFILE_NAME/bin/stopServer $SERVER_NAME \
+	   -username $USERNAME -password $PASSWORD \
+	&& curl -o /tmp/css.ear ftp://wasftp:@10.1.98.6/was/css.ear
+    && /home/ap/was/AppServer/bin/wsadmin -lang jython -conntype NONE -f  installapp.py
+	
+
+from centos:6.8
+
+COPY --chown=1000:0 --from=builder /home/ap/was /home/ap/was
+
+COPY start_server modify_password  updateHostName.py updatePassword.py  /work/
+
+RUN useradd was -g 0 -m --uid 1000   && chown -R was:root /work && chmod +x /work/* \
+    chown -R was:root /home/ap/was
+
+ENV PATH /home/ap/was/AppServer/bin:$PATH
+
+USER was
+
+CMD ["/work/start_server"]

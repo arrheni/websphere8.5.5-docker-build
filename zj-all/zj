@@ -1,0 +1,14 @@
+10.1.90.130 8880 server1 wasadmin  adminapp     zj-batch.car    SITapbatch    SITapbatchNode01Cell
+10.1.90.131 8880 server1 wasadmin  adminapp     zj-cip.car      SITapcip      SITapcipNode01Cell
+10.1.94.14  8880 server1 wasadmin  adminap2     ap2-pa1.car     SITap2pa      SITap2paNode01Cell
+10.1.94.14  8881 server1 wasadmin  adminap2     ap2-pa2.car     SITap2pa      SITap2paNode02Cell
+10.1.115.3  8880 server1 wasadmin  adminap2     ap2-nb1.car     SITap2nb      SITap2nbNode01Cell
+10.1.115.3  8881 server1 wasadmin  adminap2     ap2-nb2.car     SITap2nb      SITap2nbNode02Cell
+10.1.115.4  8880 server1 wasadmin  adminap2     ap2-qry1.car    SITap2qry     SITap2qryNode01Cell
+10.1.115.4  8881 server1 wasadmin  adminap2     ap2-qry2.car    SITap2qry     SITap2qryNode02Cell
+10.1.94.22  8880 server1 wasadmin  adminapp     ap1-pa1.car     SITap1pa      SITap1paNode01Cell
+10.1.94.22  8881 server1 wasadmin  adminapp     ap1-pa2.car     SITap1pa      SITap1paNode02Cell
+10.1.115.6  8880 server1 wasadmin  adminapp     ap1-nb1.car     SITap1nb      SITap1nbNode01Cell
+10.1.115.6  8881 server1 wasadmin  adminapp     ap1-nb2.car     SITap1nb      SITap1nbNode02Cell
+10.1.115.9  8880 server1 wasadmin  adminapp     ap1-qry1.car    SITap1qry     SITap1qryNode01Cell
+10.1.115.9  8881 server1 wasadmin  adminapp     ap1-qry2.car    SITap1qry     SITap1qryNode02Cell
